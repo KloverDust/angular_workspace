@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { TavoloDettaglioComponent } from './tavolo-dettaglio/tavolo-dettaglio.component';
 import { TavoloFiltroComponent } from './tavolo-filtro/tavolo-filtro.component';
 import { TavoloListaComponent } from './tavolo-lista/tavolo-lista.component';
@@ -8,9 +9,17 @@ import Tavolo from '../../model/tavolo';
 
 @Component({
   selector: 'app-tavolo',
-  imports: [CommonModule, TavoloDettaglioComponent, TavoloFiltroComponent, TavoloListaComponent, TavoloAggiungiComponent],
   templateUrl: './tavolo.component.html',
-  styleUrl: './tavolo.component.scss'
+  styleUrls: ['./tavolo.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    TavoloDettaglioComponent,
+    TavoloFiltroComponent,
+    TavoloListaComponent,
+    TavoloAggiungiComponent
+  ]
 })
 export class TavoloComponent {
   selected: 'dettaglio' | 'filtro' | 'lista' | 'aggiungi' = 'lista';

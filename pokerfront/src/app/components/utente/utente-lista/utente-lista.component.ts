@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { UtenteService } from '../../../service/utente.service';
 import Utente from '../../../model/utente';
 import { inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-utente-lista',
@@ -19,7 +20,9 @@ export class UtenteListaComponent implements OnInit {
 
   //Il private non rende disponibili le funzioni del service dal template !IMPORTANTE
   //constructor(private utenteService: UtenteService) {}
+  // MODO ANALOGO PER INTRODURRE IL SERVICE ALL'INTERNO
   readonly utenteService: UtenteService = inject(UtenteService);
+  private router: Router = inject(Router);
 
   ngOnInit() {
     this.utenti = this.utenteService.getAllUtenti();
@@ -46,7 +49,7 @@ export class UtenteListaComponent implements OnInit {
   }
 
   onInfoClick(utente: Utente): void {
-    this.notify.emit(utente);
+    this.router.navigate(['/utente/dettaglio', utente.id]);
   }
 
   onListaEvent(event: Utente): void {

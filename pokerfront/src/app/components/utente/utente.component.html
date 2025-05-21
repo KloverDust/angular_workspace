@@ -1,30 +1,18 @@
-<hr>
-<nav class="btn-group">
-  <button (click)="show('filtro')">Apri filtro</button>
-  <button (click)="show('lista')">Apri lista</button>
-  <button (click)="show('aggiungi')" class="btn-primary">Aggiungi Utente</button>
-</nav>
+<div class="utente-container">
+  <h1>Pagina degli utenti</h1>
+  
+  <nav class="sub-nav">
+    <ul>
+      <li>
+        <a routerLink="/utente/lista" routerLinkActive="active">Lista Utenti</a>
+      </li>
+      <li>
+        <a routerLink="/utente/aggiungi" routerLinkActive="active">Nuovo Utente</a>
+      </li>
+    </ul>
+  </nav>
 
-<app-utente-filtro
-  *ngIf="selected === 'filtro'"
-  (notify)="onFiltroEvent($event)">
-</app-utente-filtro>
-
-<app-utente-lista
-  *ngIf="selected === 'lista'"
-  [filtro]="filtroCorrente"
-  (notify)="onListaEvent($event)">
-</app-utente-lista>
-
-<app-utente-dettaglio
-  *ngIf="selected === 'dettaglio'"
-  [utente]="selectedUtenteDettaglio"
-  (notify)="onDettaglioEvent($event)">
-</app-utente-dettaglio>
-
-<app-utente-aggiungi
-  *ngIf="selected === 'aggiungi'"
-  (notify)="onAggiungiEvent($event)"
-  (close)="show('lista')">
-</app-utente-aggiungi>
-<hr>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

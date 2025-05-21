@@ -1,1 +1,35 @@
-<app-contenitore></app-contenitore>
+<div class="app-container">
+    <!-- Header/Navigation Bar -->
+    <header>
+      <nav class="main-nav">
+        <ul>
+          <li>
+            <a routerLink="/tavolo" routerLinkActive="active" 
+               [routerLinkActiveOptions]="{exact: false}">
+              <i class="fas fa-table"></i> Tavoli
+            </a>
+          </li>
+          <li>
+            <a routerLink="/utente" routerLinkActive="active"
+               [routerLinkActiveOptions]="{exact: false}">
+              <i class="fas fa-users"></i> Utenti
+            </a>
+          </li>
+          <li>
+            <a routerLink="/ruolo" routerLinkActive="active"
+               [routerLinkActiveOptions]="{exact: false}">
+              <i class="fas fa-user-tag"></i> Ruoli
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+  
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+  
+    <footer>
+      <p>&copy; 2024 Poker Application</p>
+    </footer>
+  </div>
