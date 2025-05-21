@@ -1,12 +1,21 @@
 import { Component } from '@angular/core';
-import { ContenitoreComponent } from "./components/contenitore/contenitore.component";
+import { RouterOutlet } from '@angular/router';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [ContenitoreComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  standalone: true,
+  imports: [RouterOutlet, NavbarComponent],
+  template: `
+    <app-navbar></app-navbar>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  `,
+  styles: [`
+    .container {
+      padding: 20px;
+    }
+  `]
 })
-export class AppComponent {
-  title = 'pokerfront';
-}
+export class AppComponent {}

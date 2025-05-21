@@ -1,0 +1,23 @@
+<nav class="navbar">
+    <div class="navbar-container">
+      <div class="brand">Poker App</div>
+      
+      <div class="nav-items">
+        <div class="nav-item" (mouseenter)="showDropdown('utenti')" (mouseleave)="hideDropdown('utenti')">
+          <button class="nav-link">Utenti</button>
+          <div class="dropdown-menu" [class.show]="activeDropdown === 'utenti'">
+            <a [routerLink]="['/utenti']" routerLinkActive="active" class="dropdown-item">Lista Utenti</a>
+            <a [routerLink]="['/utenti/nuovo']" routerLinkActive="active" class="dropdown-item">Nuovo Utente</a>
+          </div>
+        </div>
+
+        <div class="nav-item" (mouseenter)="showDropdown('tavoli')" (mouseleave)="hideDropdown('tavoli')">
+          <button class="nav-link">Tavoli</button>
+          <div class="dropdown-menu" [class.show]="activeDropdown === 'tavoli'">
+            <a [routerLink]="['/tavoli']" routerLinkActive="active" class="dropdown-item">Lista Tavoli</a>
+            <a [routerLink]="['/tavoli/nuovo']" routerLinkActive="active" class="dropdown-item">Nuovo Tavolo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
