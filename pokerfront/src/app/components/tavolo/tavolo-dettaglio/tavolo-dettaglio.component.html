@@ -1,0 +1,40 @@
+<div class="tavolo-dettaglio" *ngIf="tavolo">
+  <h2>Dettagli Tavolo</h2>
+  
+  <div class="dettaglio-content">
+    <div class="dettaglio-row">
+      <span class="label">ID:</span>
+      <span class="value">{{ tavolo.id }}</span>
+    </div>
+    
+    <div class="dettaglio-row">
+      <span class="label">Denominazione:</span>
+      <span class="value">{{ tavolo.denominazione }}</span>
+    </div>
+    
+    <div class="dettaglio-row">
+      <span class="label">Esperienza Minima:</span>
+      <span class="value">{{ tavolo.esperienzaMin }}</span>
+    </div>
+    
+    <div class="dettaglio-row">
+      <span class="label">Cifra Minima:</span>
+      <span class="value">{{ tavolo.cifraMinima | number:'1.2-2' }}€</span>
+    </div>
+    
+    <div class="dettaglio-row">
+      <span class="label">Data Creazione:</span>
+      <span class="value">{{ tavolo.dataCreazione | date:'dd/MM/yyyy' }}</span>
+    </div>
+    
+    <div class="dettaglio-row">
+      <span class="label">Creato da:</span>
+      <span class="value">{{ tavolo.utenteCreazione.username }}</span>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn-secondary" (click)="onClose()">Chiudi</button>
+    <button class="btn-danger" (click)="onDelete()">Elimina Tavolo</button>
+  </div>
+</div>

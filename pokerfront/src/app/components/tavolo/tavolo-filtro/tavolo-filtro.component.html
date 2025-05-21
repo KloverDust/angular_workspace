@@ -1,0 +1,61 @@
+<!-- pagina-filtro-tavolo.component.html -->
+<div class="filter-form">
+  <form (submit)="onSubmit(); $event.preventDefault()">
+    <label>
+      ID Tavolo
+      <input
+        type="number"
+        name="id"
+        placeholder="Inserisci ID tavolo"
+      />
+    </label>
+
+    <label>
+      Denominazione
+      <input
+        type="text"
+        name="denominazione"
+        [(ngModel)]="filtro.denominazione"
+        placeholder="Inserisci denominazione"
+      />
+    </label>
+
+    <label>
+      Esperienza Minima
+      <input
+        type="number"
+        name="esperienzaMin"
+        [(ngModel)]="filtro.esperienzaMin"
+        placeholder="Inserisci esperienza minima"
+      />
+    </label>
+
+    <label>
+      Cifra Minima
+      <input
+        type="number"
+        name="cifraMinima"
+        placeholder="Inserisci cifra minima"
+      />
+    </label>
+
+    <label>
+      Data Creazione
+      <input
+        type="date"
+        name="dataCreazione"
+      />
+    </label>
+
+    <label>
+      Utente Creazione (username)
+      <input
+        type="text"
+        name="utenteCreazione"
+        placeholder="Inserisci username creatore"
+      />
+    </label>
+
+    <button type="submit">Filtra</button>
+  </form>
+</div>

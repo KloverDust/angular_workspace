@@ -1,0 +1,20 @@
+<h1>Lista Utenti</h1>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>username</th>
+    <th>nome</th>
+    <th>cognome</th>
+    <th>Azioni</th> 
+  </tr>
+  <tr *ngFor="let utente of utentiFiltrati">
+    <td>{{ utente.id }}</td>
+    <td>{{ utente.username }}</td>
+    <td>{{ utente.nome }}</td>
+    <td>{{ utente.cognome }}</td>
+    <td>
+      <button (click)="onInfoClick(utente)">Info</button>
+      <button (click)="utenteService.getAllUtenti()">Prova</button>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,47 @@
+<div class="aggiungi-form">
+  <h2>Aggiungi Nuovo Tavolo</h2>
+  
+  <form (submit)="onSubmit(); $event.preventDefault()">
+    <div class="form-row">
+      <label>
+        Denominazione:
+        <input
+          type="text"
+          name="denominazione"
+          [(ngModel)]="nuovoTavolo.denominazione"
+          required
+          placeholder="Inserisci denominazione"
+        />
+      </label>
+
+      <label>
+        Esperienza Minima:
+        <input
+          type="number"
+          name="esperienzaMin"
+          [(ngModel)]="nuovoTavolo.esperienzaMin"
+          required
+          placeholder="Inserisci esperienza minima"
+        />
+      </label>
+    </div>
+
+    <div class="form-row">
+      <label>
+        Cifra Minima:
+        <input
+          type="number"
+          name="cifraMinima"
+          [(ngModel)]="nuovoTavolo.cifraMinima"
+          required
+          placeholder="Inserisci cifra minima"
+        />
+      </label>
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn-primary">Salva</button>
+      <button type="button" class="btn-secondary" (click)="onCancel()">Annulla</button>
+    </div>
+  </form>
+</div> 

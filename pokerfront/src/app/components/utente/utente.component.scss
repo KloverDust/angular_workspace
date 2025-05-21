@@ -1,0 +1,6 @@
+.btn-group {
+  display: flex;            /* mette i button in orizzontale */
+  justify-content: center;  /* li centra orizzontalmente nel contenitore */
+  gap: 1rem;                /* spazio orizzontale fisso tra un button e l'altro */
+  margin: 1.5rem 0;         /* spazio sopra e sotto il nav */
+}

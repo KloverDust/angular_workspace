@@ -1,0 +1,17 @@
+
+    <div *ngIf="utente">
+      <h2>Dettagli di {{ utente.nome }} {{ utente.cognome }}</h2>
+      <p><strong>ID:</strong> {{ utente.id }}</p>
+      <p><strong>Username:</strong> {{ utente.username }}</p>
+      <p><strong>Nome:</strong> {{ utente.nome }}</p>
+      <p><strong>Cognome:</strong> {{ utente.cognome }}</p>
+      <p><strong>Stato:</strong> {{ utente.stato }}</p>
+      <p><strong>Esperienza:</strong> {{ utente.esperienzaAccumulata }}</p>
+      <p><strong>Credito:</strong> {{ utente.creditoAccumulato }}</p>
+    </div>
+    <div class="actions">
+      <button class="btn-secondary" (click)="onClose()">Chiudi</button>
+      <button class="btn-danger" (click)="onDelete()">Elimina Utente</button>
+    </div>
+  
+  

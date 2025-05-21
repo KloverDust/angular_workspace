@@ -1,0 +1,21 @@
+<h1>Lista Tavoli</h1>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Esperienza minima</th>
+    <th>Cifra minima</th>
+    <th>Denominazione</th>
+    <th>Data creazione</th>
+    <th>Azioni</th>
+  </tr>
+  <tr *ngFor="let tavolo of tavoliFiltrati">
+    <td>{{ tavolo.id }}</td>
+    <td>{{ tavolo.esperienzaMin }}</td>
+    <td>{{ tavolo.cifraMinima }}</td>
+    <td>{{ tavolo.denominazione }}</td>
+    <td>{{ tavolo.dataCreazione | date:'dd/MM/yyyy' }}</td>
+    <td>
+      <button (click)="onInfoClick(tavolo)">Info</button>
+    </td>
+  </tr>
+</table>

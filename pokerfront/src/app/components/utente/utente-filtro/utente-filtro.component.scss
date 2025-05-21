@@ -1,0 +1,13 @@
+.filter-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+}

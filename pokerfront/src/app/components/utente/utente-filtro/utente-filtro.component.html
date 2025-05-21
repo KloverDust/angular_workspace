@@ -1,0 +1,65 @@
+<div class="filter-form">
+
+    <label>
+      Nome
+      <input
+        type="text"
+        name="nome"
+        placeholder="Inserisci nome"
+        [(ngModel)]="filtro.nome"
+        (ngModelChange)="onChange()" />
+    </label>
+
+    <label>
+      Cognome
+      <input
+        type="text"
+        name="cognome"
+        placeholder="Inserisci cognome"
+        [(ngModel)]="filtro.cognome"
+        (ngModelChange)="onChange()" />
+    </label>
+
+    <label>
+      Stato
+      <select name="stato">
+        <option value="" disabled selected>Seleziona stato</option>
+        <option value="creato">Creato</option>
+        <option value="attivo">Attivo</option>
+        <option value="disabilitato">Disabilitato</option>
+      </select>
+    </label>
+
+    <label>
+      Credito
+      <input type="number" name="credito" placeholder="Minimo credito" />
+    </label>
+
+
+</div>
+
+<div class="users-list" *ngIf="utentiFiltrati.length > 0">
+  <h3>Utenti Filtrati</h3>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Username</th>
+      <th>Nome</th>
+      <th>Cognome</th>
+      <th>Azioni</th>
+    </tr>
+    <tr *ngFor="let utente of utentiFiltrati">
+      <td>{{ utente.id }}</td>
+      <td>{{ utente.username }}</td>
+      <td>{{ utente.nome }}</td>
+      <td>{{ utente.cognome }}</td>
+      <td>
+        <button (click)="onInfoClick(utente)">Info</button>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="no-results" *ngIf="filtro.nome || filtro.cognome">
+  <p *ngIf="utentiFiltrati.length === 0">Nessun utente trovato con i criteri specificati</p>
+</div>

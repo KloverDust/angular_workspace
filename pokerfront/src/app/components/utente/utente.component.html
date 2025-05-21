@@ -1,0 +1,30 @@
+<hr>
+<nav class="btn-group">
+  <button (click)="show('filtro')">Apri filtro</button>
+  <button (click)="show('lista')">Apri lista</button>
+  <button (click)="show('aggiungi')" class="btn-primary">Aggiungi Utente</button>
+</nav>
+
+<app-utente-filtro
+  *ngIf="selected === 'filtro'"
+  (notify)="onFiltroEvent($event)">
+</app-utente-filtro>
+
+<app-utente-lista
+  *ngIf="selected === 'lista'"
+  [filtro]="filtroCorrente"
+  (notify)="onListaEvent($event)">
+</app-utente-lista>
+
+<app-utente-dettaglio
+  *ngIf="selected === 'dettaglio'"
+  [utente]="selectedUtenteDettaglio"
+  (notify)="onDettaglioEvent($event)">
+</app-utente-dettaglio>
+
+<app-utente-aggiungi
+  *ngIf="selected === 'aggiungi'"
+  (notify)="onAggiungiEvent($event)"
+  (close)="show('lista')">
+</app-utente-aggiungi>
+<hr>

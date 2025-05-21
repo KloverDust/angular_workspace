@@ -1,0 +1,78 @@
+<div class="aggiungi-form">
+  <h2>Aggiungi Nuovo Utente</h2>
+  
+  <form (submit)="onSubmit(); $event.preventDefault()">
+    <div class="form-row">
+      <label>
+        Nome:
+        <input
+          type="text"
+          name="nome"
+          [(ngModel)]="nuovoUtente.nome"
+          required
+          placeholder="Inserisci nome"
+        />
+      </label>
+
+      <label>
+        Cognome:
+        <input
+          type="text"
+          name="cognome"
+          [(ngModel)]="nuovoUtente.cognome"
+          required
+          placeholder="Inserisci cognome"
+        />
+      </label>
+    </div>
+
+    <div class="form-row">
+      <label>
+        Username:
+        <input
+          type="text"
+          name="username"
+          [(ngModel)]="nuovoUtente.username"
+          required
+          placeholder="Inserisci username"
+        />
+      </label>
+
+      <label>
+        Stato:
+        <select name="stato" [(ngModel)]="nuovoUtente.stato">
+          <option value="ATTIVO">Attivo</option>
+          <option value="SOSPESO">Sospeso</option>
+          <option value="DISABILITATO">Disabilitato</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="form-row">
+      <label>
+        Esperienza:
+        <input
+          type="number"
+          name="esperienzaAccumulata"
+          [(ngModel)]="nuovoUtente.esperienzaAccumulata"
+          required
+        />
+      </label>
+
+      <label>
+        Credito:
+        <input
+          type="number"
+          name="creditoAccumulato"
+          [(ngModel)]="nuovoUtente.creditoAccumulato"
+          required
+        />
+      </label>
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="btn-primary">Salva</button>
+      <button type="button" class="btn-secondary" (click)="onCancel()">Annulla</button>
+    </div>
+  </form>
+</div>

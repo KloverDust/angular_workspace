@@ -1,0 +1,30 @@
+<hr>
+<nav class="btn-group">
+  <button (click)="show('filtro')">Apri filtro</button>
+  <button (click)="show('lista')">Apri lista</button>
+  <button (click)="show('aggiungi')" class="btn-primary">Aggiungi Tavolo</button>
+</nav>
+
+<app-tavolo-filtro
+  *ngIf="selected === 'filtro'"
+  (notify)="onFiltroEvent($event)">
+</app-tavolo-filtro>
+
+<app-tavolo-lista
+  *ngIf="selected === 'lista'"
+  [filtro]="filtroCorrente"
+  (notify)="onListaEvent($event)">
+</app-tavolo-lista>
+
+<app-tavolo-dettaglio
+  *ngIf="selected === 'dettaglio'"
+  [tavolo]="tavoloSelezionato"
+  (notify)="onDettaglioEvent($event)">
+</app-tavolo-dettaglio>
+
+<app-tavolo-aggiungi
+  *ngIf="selected === 'aggiungi'"
+  (notify)="onAggiungiEvent($event)"
+  (close)="show('lista')">
+</app-tavolo-aggiungi>
+<hr>
