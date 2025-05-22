@@ -1,34 +1,44 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import Utente from '../../../model/utente';
 import { CommonModule } from '@angular/common';
 import { UtenteService } from '../../../service/utente.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-utente-dettaglio',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './utente-dettaglio.component.html',
   styleUrl: './utente-dettaglio.component.scss'
 })
-export class UtenteDettaglioComponent {
-  @Input() visible = false;
-  @Input() utente: Utente | null = null;  
-  @Output() notify = new EventEmitter<string>();
+export class UtenteDettaglioComponent implements OnInit {
+  utente: Utente | null = null;
 
-  constructor(private utenteService: UtenteService) {}
+  constructor(
+    private utenteService: UtenteService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
-  emit(message: string) {
-    this.notify.emit(message);
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      const id = Number(params['id']);
+      this.utente = this.utenteService.getUtenteById(id) || null;
+      
+      if (!this.utente) {
+        this.router.navigate(['/utenti']);
+      }
+    });
   }
 
   onClose() {
-    this.notify.emit('close');
+    this.router.navigate(['/utenti']);
   }
 
   onDelete() {
-    this.notify.emit('delete');
     if (this.utente && confirm('Sei sicuro di voler eliminare questo utente?')) {
       this.utenteService.removeUtente(this.utente.id);
-      this.notify.emit('deleted');
+      this.router.navigate(['/utenti']);
     }
   }
 }
