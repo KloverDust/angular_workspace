@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
@@ -13,13 +14,26 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 export class NavbarComponent {
   activeDropdown: string | null = null;
 
-  showDropdown(menu: string): void {
-    this.activeDropdown = menu;
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+
+    const navbar = (event.target as HTMLElement).closest('.navbar');
+    if (!navbar) {
+      this.closeDropdown();
+    }
   }
 
-  hideDropdown(menu: string): void {
+  toggleDropdown(menu: string): void {
+    // If clicking the same menu that's already open, close it
     if (this.activeDropdown === menu) {
       this.activeDropdown = null;
+    } else {
+      // If clicking a different menu, open it (and close any other open menu)
+      this.activeDropdown = menu;
     }
+  }
+
+  closeDropdown(): void {
+    this.activeDropdown = null;
   }
 } 

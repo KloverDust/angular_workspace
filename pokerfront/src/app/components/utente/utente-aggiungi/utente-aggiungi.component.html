@@ -1,29 +1,43 @@
 <div class="aggiungi-form">
   <h2>Aggiungi Nuovo Utente</h2>
   
-  <form (submit)="onSubmit(); $event.preventDefault()">
+  <form #utenteForm="ngForm" (submit)="onSubmit(); $event.preventDefault()">
     <div class="form-row">
       <label>
         Nome:
         <input
           type="text"
           name="nome"
+          #nome="ngModel"
           [(ngModel)]="nuovoUtente.nome"
           required
+          minlength="2"
+          pattern="[a-zA-Z\s]+"
           placeholder="Inserisci nome"
         />
       </label>
+      <div *ngIf="nome.invalid && (nome.dirty || nome.touched)" class="error-message">
+        <div *ngIf="nome.errors?.['required']">Il nome è obbligatorio.</div>
+        <div *ngIf="nome.errors?.['pattern']">Il nome può contenere solo lettere.</div>
+      </div>
 
       <label>
         Cognome:
         <input
           type="text"
           name="cognome"
+          #cognome="ngModel"
           [(ngModel)]="nuovoUtente.cognome"
           required
+          minlength="2"
+          pattern="[a-zA-Z\s]+"
           placeholder="Inserisci cognome"
         />
       </label>
+      <div *ngIf="cognome.invalid && (cognome.dirty || cognome.touched)" class="error-message">
+        <div *ngIf="cognome.errors?.['required']">Il cognome è obbligatorio.</div>
+        <div *ngIf="cognome.errors?.['pattern']">Il cognome può contenere solo lettere.</div>
+      </div>
     </div>
 
     <div class="form-row">
@@ -32,20 +46,34 @@
         <input
           type="text"
           name="username"
+          #username="ngModel"
           [(ngModel)]="nuovoUtente.username"
           required
+          minlength="3"
+          pattern="[a-zA-Z0-9_-]+"
           placeholder="Inserisci username"
         />
       </label>
+      <div *ngIf="username.invalid && (username.dirty || username.touched)" class="error-message">
+        <div *ngIf="username.errors?.['required']">L'username è obbligatorio.</div>
+        <div *ngIf="username.errors?.['pattern']">L'username può contenere solo lettere, numeri, underscore e trattini.</div>
+      </div>
 
       <label>
         Stato:
-        <select name="stato" [(ngModel)]="nuovoUtente.stato">
+        <select 
+          name="stato" 
+          #stato="ngModel"
+          [(ngModel)]="nuovoUtente.stato"
+          required>
           <option value="ATTIVO">Attivo</option>
           <option value="SOSPESO">Sospeso</option>
           <option value="DISABILITATO">Disabilitato</option>
         </select>
       </label>
+      <div *ngIf="stato.invalid && (stato.dirty || stato.touched)" class="error-message">
+        <div *ngIf="stato.errors?.['required']">Lo stato è obbligatorio.</div>
+      </div>
     </div>
 
     <div class="form-row">
@@ -54,24 +82,36 @@
         <input
           type="number"
           name="esperienzaAccumulata"
+          #esperienza="ngModel"
           [(ngModel)]="nuovoUtente.esperienzaAccumulata"
           required
+          min="0"
         />
       </label>
+      <div *ngIf="esperienza.invalid && (esperienza.dirty || esperienza.touched)" class="error-message">
+        <div *ngIf="esperienza.errors?.['required']">L'esperienza è obbligatoria.</div>
+        <div *ngIf="esperienza.errors?.['min']">L'esperienza non può essere negativa.</div>
+      </div>
 
       <label>
         Credito:
         <input
           type="number"
           name="creditoAccumulato"
+          #credito="ngModel"
           [(ngModel)]="nuovoUtente.creditoAccumulato"
           required
+          min="0"
         />
       </label>
+      <div *ngIf="credito.invalid && (credito.dirty || credito.touched)" class="error-message">
+        <div *ngIf="credito.errors?.['required']">Il credito è obbligatorio.</div>
+        <div *ngIf="credito.errors?.['min']">Il credito non può essere negativo.</div>
+      </div>
     </div>
 
     <div class="actions">
-      <button type="submit" class="btn-primary">Salva</button>
+      <button type="submit" class="btn-primary" [disabled]="!utenteForm.form.valid">Salva</button>
       <button type="button" class="btn-secondary" (click)="onCancel()">Annulla</button>
     </div>
   </form>

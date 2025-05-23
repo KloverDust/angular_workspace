@@ -1,19 +1,21 @@
-<h1>Lista Utenti</h1>
-<table>
-  <tr>
-    <th>ID</th>
-    <th>username</th>
-    <th>nome</th>
-    <th>cognome</th>
-    <th>Azioni</th> 
-  </tr>
-  <tr *ngFor="let utente of utentiFiltrati">
-    <td>{{ utente.id }}</td>
-    <td>{{ utente.username }}</td>
-    <td>{{ utente.nome }}</td>
-    <td>{{ utente.cognome }}</td>
-    <td>
-      <button class="btn-info" (click)="onInfoClick(utente)">Info</button>
-    </td>
-  </tr>
-</table>
+<div class="page-container">
+  <h1>Lista Utenti</h1>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Username</th>
+      <th>Nome</th>
+      <th>Cognome</th>
+      <th>Azioni</th> 
+    </tr>
+    <tr *ngFor="let utente of utentiFiltrati">
+      <td>{{ utente.id }}</td>
+      <td>{{ utente.username }}</td>
+      <td>{{ utente.nome }}</td>
+      <td>{{ utente.cognome }}</td>
+      <td>
+        <button class="btn-info" (click)="onInfoClick(utente)">Info</button>
+      </td>
+    </tr>
+  </table>
+</div>

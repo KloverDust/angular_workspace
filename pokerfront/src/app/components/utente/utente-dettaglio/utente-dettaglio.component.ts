@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Utente from '../../../model/utente';
 import { CommonModule } from '@angular/common';
 import { UtenteService } from '../../../service/utente.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-utente-dettaglio',
@@ -16,19 +16,17 @@ export class UtenteDettaglioComponent implements OnInit {
 
   constructor(
     private utenteService: UtenteService,
-    private route: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      const id = Number(params['id']);
-      this.utente = this.utenteService.getUtenteById(id) || null;
-      
-      if (!this.utente) {
-        this.router.navigate(['/utenti']);
-      }
-    });
+    // Get the ID from the current URL
+    const id = Number(this.router.url.split('/').pop());
+    this.utente = this.utenteService.getUtenteById(id) || null;
+    
+    if (!this.utente) {
+      this.router.navigate(['/utenti']);
+    }
   }
 
   onClose() {
@@ -37,7 +35,7 @@ export class UtenteDettaglioComponent implements OnInit {
 
   onDelete() {
     if (this.utente && confirm('Sei sicuro di voler eliminare questo utente?')) {
-      this.utenteService.removeUtente(this.utente.id);
+      this.utenteService.removeUtente(this.utente.id!);
       this.router.navigate(['/utenti']);
     }
   }

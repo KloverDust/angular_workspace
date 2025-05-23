@@ -1,0 +1,221 @@
+// Variables from the target design
+$bg-color: #fcf8f8;
+$text-color: #1b0e0e;
+$placeholder-color: #994d51;
+$border-color: #e7d0d1;
+$primary-button-bg: #e92932;
+$primary-button-text: #fcf8f8;
+$link-color: #e92932; // Or use $placeholder-color
+
+// Font setup (assuming fonts are linked in index.html)
+$font-family-base: "Lexend", "Noto Sans", sans-serif;
+
+// Base styles
+:host {
+  display: block; // Ensures the component takes up space
+  height: 100%;
+}
+
+.page-container {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%; // Make sure it fills the host or viewport
+  min-height: 100vh; // Ensure it takes at least the full viewport height
+  flex-direction: column;
+  background-color: $bg-color;
+  justify-content: space-between;
+  overflow-x: hidden;
+  font-family: $font-family-base;
+}
+
+.content-top {
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  background-color: $bg-color;
+  padding: 1rem 1rem 0.5rem; // p-4 pb-2 equivalent
+  justify-content: center; // Center title if no back arrow
+
+  // If you add a back arrow or logo:
+  // justify-content: space-between;
+  // .header-icon {
+  //   color: $text-color;
+  //   display: flex;
+  //   width: 3rem; // size-12
+  //   height: 3rem; // size-12
+  //   flex-shrink: 0;
+  //   align-items: center;
+  //   justify-content: center;
+  //   svg {
+  //     width: 24px;
+  //     height: 24px;
+  //     fill: currentColor;
+  //   }
+  // }
+
+  .title {
+    color: $text-color;
+    font-size: 1.125rem; // text-lg
+    font-weight: 700; // font-bold
+    line-height: 1.375; // leading-tight
+    letter-spacing: -0.015em;
+    flex: 1;
+    text-align: center;
+    // If header-icon is present and you want to balance it:
+    // padding-right: 3rem; // pr-12 (if icon is 3rem wide)
+  }
+}
+
+.login-form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem; // Reduced gap between form field groups
+  padding: 0.75rem 1rem; // px-4 py-3 (applied to wrapper)
+  max-width: 480px;
+  margin: 0 auto; // Center the form
+}
+
+.form-field-group {
+  display: flex; // This was part of the target's structure for each field
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 0.75rem; // py-3 was on each item, now more like mb-3
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  min-width: 10rem; // min-w-40
+  flex: 1;
+
+  .label-text {
+    color: $text-color;
+    font-size: 1rem; // text-base
+    font-weight: 500; // font-medium
+    line-height: 1.5; // leading-normal
+    padding-bottom: 0.5rem; // pb-2
+    margin: 0;
+  }
+
+  .form-input {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    flex: 1;
+    resize: none;
+    overflow: hidden;
+    border-radius: 0.5rem; // rounded-lg
+    color: $text-color;
+    border: 1px solid $border-color;
+    background-color: $bg-color; // or #fff if preferred for inputs
+    height: 3.5rem; // h-14
+    padding: 15px; // p-[15px]
+    font-size: 1rem; // text-base
+    font-weight: 400; // font-normal
+    line-height: 1.5; // leading-normal
+    box-sizing: border-box; // Important for padding and border
+
+    &::placeholder {
+      color: $placeholder-color;
+      opacity: 1; // Ensure placeholder is visible
+    }
+
+    &:focus {
+      outline: none;
+      // box-shadow: none; // for focus:ring-0
+      border-color: $border-color; // focus:border-[#e7d0d1] - or a highlight color
+      // Example highlight: border-color: darken($border-color, 15%);
+    }
+  }
+}
+
+// Optional: Error message styling
+.error-messages {
+  padding: 0.5rem 1rem 0; // Add some spacing
+  max-width: 480px;
+  margin: 0 auto; // Center with the form
+  p {
+    color: $primary-button-bg; // Use a distinct error color
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+  }
+}
+
+
+.content-bottom {
+  width: 100%;
+}
+
+.actions-container {
+  display: flex;
+  padding: 0.75rem 1rem; // px-4 py-3
+  justify-content: center; // Center the login button
+  max-width: 480px; // Match form width
+  margin: 0 auto; // Center the container
+
+  .action-button {
+    display: flex;
+    width: 100%; // Make button full width within its container
+    min-width: 84px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 0.5rem; // rounded-lg
+    height: 2.5rem; // h-10
+    padding: 0 1rem; // px-4
+    background-color: $primary-button-bg;
+    color: $primary-button-text;
+    font-size: 0.875rem; // text-sm
+    font-weight: 700; // font-bold
+    line-height: 1.5; // leading-normal (approx)
+    letter-spacing: 0.015em;
+    border: none;
+    transition: background-color 0.2s ease-in-out;
+
+    .button-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: darken($primary-button-bg, 10%);
+    }
+
+    &:disabled {
+      background-color: lighten($primary-button-bg, 25%); // A lighter, desaturated version
+      color: lighten($primary-button-text, 10%);
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+  }
+}
+
+.register-link-container {
+  text-align: center;
+  padding: 0.5rem 1rem 1rem; // Add some spacing
+  max-width: 480px;
+  margin: 0 auto;
+  font-size: 0.875rem;
+  color: $text-color;
+
+  a {
+    color: $link-color;
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.bottom-spacer {
+  height: 1.25rem; // h-5
+  background-color: $bg-color; // Match page background
+}

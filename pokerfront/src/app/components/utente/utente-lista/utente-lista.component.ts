@@ -47,7 +47,7 @@ export class UtenteListaComponent implements OnInit {
   }
 
   onInfoClick(utente: Utente): void {
-    this.router.navigate(['/utenti/dettaglio', utente.id]);
+    this.router.navigate(['/utenti/dettaglio/'+ utente.id]);
   }
 
   onListaEvent(event: Utente): void {

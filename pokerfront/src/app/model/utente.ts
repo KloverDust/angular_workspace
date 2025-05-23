@@ -7,9 +7,23 @@ export default interface Utente {
     nome: string;
     cognome: string;
     username: string;
+    password?: string;
     dataRegistrazione: Date;
     esperienzaAccumulata: number;
     creditoAccumulato: number;
     stato: Stato;
     ruolo: Ruolo;
+}
+
+export interface UtenteLogin {
+    username: string;
+    password: string;
+}
+
+export interface UtenteRegistrazione {
+    nome: string;
+    cognome: string;
+    username: string;
+    password: string;
+    creditoAccumulato?: number;
 }

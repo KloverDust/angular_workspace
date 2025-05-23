@@ -1,0 +1,113 @@
+// Variables (consistent with login and registration components)
+$bg-color: #fcf8f8;
+$text-color: #1b0e0e;
+$placeholder-color: #994d51;
+$border-color: #e7d0d1;
+$primary-button-bg: #e92932;
+$primary-button-text: #fcf8f8;
+$error-color: #e92932;
+
+// Font setup
+$font-family-base: "Lexend", "Noto Sans", sans-serif;
+
+:host {
+  display: block;
+  height: 100%;
+}
+
+.page-container {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  flex-direction: column;
+  background-color: $bg-color;
+  font-family: $font-family-base;
+  padding: 1rem;
+}
+
+h1 {
+  color: $text-color;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  letter-spacing: -0.015em;
+}
+
+table {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: white;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid $border-color;
+  }
+
+  th {
+    background-color: $bg-color;
+    color: $text-color;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  td {
+    color: $text-color;
+    font-size: 0.875rem;
+
+    // Style for numeric values (like cifraMinima and esperienzaMin)
+    &:nth-child(2),
+    &:nth-child(3) {
+      font-family: monospace;
+      text-align: right;
+    }
+
+    // Style for date
+    &:nth-child(5) {
+      font-family: $font-family-base;
+      white-space: nowrap;
+    }
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:hover td {
+    background-color: lighten($bg-color, 1%);
+  }
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.375rem;
+  background-color: $primary-button-bg;
+  color: $primary-button-text;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: darken($primary-button-bg, 10%);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba($primary-button-bg, 0.4);
+  }
+}
