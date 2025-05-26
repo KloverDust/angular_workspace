@@ -7,7 +7,7 @@ import Utente, { UtenteLogin } from '../model/utente';
   providedIn: 'root'
 })
 export class LoginService {
-  private apiUrl = 'http://localhost:8080/api/player/login'; // adjust this to match your backend URL
+  private apiUrl = 'http://localhost:8080/api/auth/login'; // adjust this to match your backend URL
 
   constructor(private http: HttpClient) { }
 

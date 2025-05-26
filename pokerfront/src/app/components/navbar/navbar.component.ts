@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import { HostListener } from '@angular/core';
 
 @Component({
@@ -14,9 +14,10 @@ import { HostListener } from '@angular/core';
 export class NavbarComponent {
   activeDropdown: string | null = null;
 
+  constructor(private router: Router) {}
+
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
-
     const navbar = (event.target as HTMLElement).closest('.navbar');
     if (!navbar) {
       this.closeDropdown();
@@ -35,5 +36,13 @@ export class NavbarComponent {
 
   closeDropdown(): void {
     this.activeDropdown = null;
+  }
+
+  login(): void {
+    this.router.navigate(['/login']);
+  }
+
+  register(): void {
+    this.router.navigate(['/register']);
   }
 } 
