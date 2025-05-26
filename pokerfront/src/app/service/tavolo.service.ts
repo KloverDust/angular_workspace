@@ -1,39 +1,37 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import Tavolo from '../model/tavolo';
-import { TAVOLI } from '../mock/mock';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TavoloService {
-  private tavoli: Tavolo[] = TAVOLI;
+  private apiUrl = 'http://localhost:8080/api/tavolo';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getAllTavoli(): Tavolo[] {
-    return this.tavoli;
+  getAllTavoli(): Observable<Tavolo[]> {
+    return this.http.get<Tavolo[]>(`${this.apiUrl}/lista`);
   }
 
-  getTavoloById(id: number): Tavolo | undefined {
-    return this.tavoli.find(tavolo => tavolo.id === id);
+  getTavoloById(id: number): Observable<Tavolo> {
+    return this.http.get<Tavolo>(`${this.apiUrl}/${id}`);
   }
 
-  filterTavoliByDenominazione(filtro: string): Tavolo[] {
-    return this.tavoli.filter(tavolo => tavolo.denominazione.toLowerCase().includes(filtro.toLowerCase()));
+  filterTavoliByDenominazione(filtro: string): Observable<Tavolo[]> {
+    return this.http.get<Tavolo[]>(`${this.apiUrl}/search?denominazione=${filtro}`);
   }
 
-  addTavolo(tavolo: Tavolo): void {
-    this.tavoli.push(tavolo);
+  addTavolo(tavolo: Tavolo): Observable<Tavolo> {
+    return this.http.post<Tavolo>(this.apiUrl, tavolo);
   }
 
-  deleteTavolo(id: number): void {
-    this.tavoli = this.tavoli.filter(tavolo => tavolo.id !== id);
+  deleteTavolo(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  updateTavolo(tavolo: Tavolo): void {
-    const index = this.tavoli.findIndex(t => t.id === tavolo.id);
-    if (index !== -1) {
-      this.tavoli[index] = tavolo;
-    }
+  updateTavolo(tavolo: Tavolo): Observable<Tavolo> {
+    return this.http.put<Tavolo>(`${this.apiUrl}/${tavolo.id}`, tavolo);
   }
 }

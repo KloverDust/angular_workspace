@@ -29,6 +29,10 @@ export class RegistrationComponent {
     });
   }
 
+  backToLogin() {
+    this.router.navigate(['/login']);
+  }
+
   onSubmit() {
     if (this.registrationForm.valid) {
       this.registrationService.register(this.registrationForm.value).subscribe({
@@ -46,9 +50,5 @@ export class RegistrationComponent {
         }
       });
     }
-  }
-
-  backToLogin() {
-    this.router.navigate(['/login']);
   }
 } 

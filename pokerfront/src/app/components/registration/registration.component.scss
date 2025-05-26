@@ -1,244 +1,136 @@
-// Variables (consistent with login component)
-$bg-color: #fcf8f8;
-$text-color: #1b0e0e;
-$placeholder-color: #994d51;
-$border-color: #e7d0d1;
-$primary-button-bg: #e92932;
-$primary-button-text: #fcf8f8;
-$error-color: #e92932; // Using primary red for errors for consistency
-
-// Font setup (assuming fonts are linked in index.html)
-$font-family-base: "Lexend", "Noto Sans", sans-serif;
-
-// Base styles
-:host {
-  display: block;
-  height: 100%;
-}
-
 .page-container {
-  position: relative;
   display: flex;
-  width: 100%;
-  height: 100%;
-  min-height: 100vh;
   flex-direction: column;
-  background-color: $bg-color;
-  justify-content: space-between;
-  overflow-x: hidden;
-  font-family: $font-family-base;
-}
+  height: 100vh;
+  max-width: 400px;
+  margin: auto;
+  padding: 1rem;
+  box-sizing: border-box;
 
-.content-top {
-  width: 100%;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  background-color: $bg-color;
-  padding: 1rem 1rem 0.5rem; // p-4 pb-2
-  justify-content: space-between; // For icon and title
-
-  .header-icon {
-    color: $text-color;
-    display: flex;
-    width: 3rem; // size-12
-    height: 3rem; // size-12
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center; // Center the SVG inside
-    cursor: pointer;
-    border-radius: 50%; // Make it round for better hover/focus indication
-    transition: background-color 0.2s ease-in-out;
-
-    &:hover {
-      background-color: darken($bg-color, 5%);
-    }
-
-    svg {
-      width: 24px;
-      height: 24px;
-      fill: currentColor;
-    }
-  }
-
-  .title {
-    color: $text-color;
-    font-size: 1.125rem; // text-lg
-    font-weight: 700; // font-bold
-    line-height: 1.375; // leading-tight
-    letter-spacing: -0.015em;
+  .content-top {
     flex: 1;
-    text-align: center;
-    // Adjust padding to keep it visually centered if icon is present
-    // The icon takes 3rem, so we add padding to the other side of the title
-    // This assumes the title itself will center in the remaining space.
-    // If the title needs to be perfectly centered in the header,
-    // more complex flexbox or absolute positioning might be needed.
-    // For now, this should be acceptable.
-    padding-right: 3rem; // Balances the space taken by header-icon
-  }
-}
-
-.registration-form-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding: 0.75rem 1rem;
-  max-width: 480px;
-  margin: 0 auto; // Center the form
-}
-
-.form-field-group {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding-bottom: 0.25rem; // A bit less space before error messages
-}
-
-.form-field {
-  display: flex;
-  flex-direction: column;
-  min-width: 10rem; // min-w-40
-  flex: 1;
-
-  .label-text {
-    color: $text-color;
-    font-size: 1rem; // text-base
-    font-weight: 500; // font-medium
-    line-height: 1.5; // leading-normal
-    padding-bottom: 0.5rem; // pb-2
-    margin: 0;
-  }
-
-  .form-input {
     display: flex;
-    width: 100%;
-    min-width: 0;
-    flex: 1;
-    resize: none;
-    overflow: hidden;
-    border-radius: 0.5rem; // rounded-lg
-    color: $text-color;
-    border: 1px solid $border-color;
-    background-color: $bg-color;
-    height: 3.5rem; // h-14
-    padding: 15px;
-    font-size: 1rem; // text-base
-    font-weight: 400; // font-normal
-    line-height: 1.5; // leading-normal
-    box-sizing: border-box;
+    flex-direction: column;
 
-    &::placeholder {
-      color: $placeholder-color;
-      opacity: 1;
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+
+      .header-icon {
+        cursor: pointer;
+        margin-right: 0.75rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 4px;
+        transition: background 0.2s;
+
+        &:hover {
+          background: rgba(0, 0, 0, 0.05);
+        }
+
+        svg {
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+      }
+
+      .title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 0;
+      }
     }
 
-    &:focus {
-      outline: none;
-      border-color: darken($border-color, 15%);
-    }
+    .registration-form-content {
+      .form-field-group {
+        margin-bottom: 1rem;
 
-    // Style for invalid inputs
-    &.invalid-input {
-      border-color: $error-color;
-      &:focus {
-        border-color: darken($error-color, 10%);
-        // box-shadow: 0 0 0 0.2rem rgba($error-color, 0.25); // Optional focus ring for invalid
+        .form-field {
+          display: flex;
+          flex-direction: column;
+
+          .label-text {
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+            color: #444;
+          }
+
+          .form-input {
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+
+            &.invalid-input {
+              border-color: #e74c3c;
+            }
+
+            &:focus {
+              outline: none;
+              border-color: #666;
+            }
+          }
+        }
+
+        .error-text-container {
+          margin-top: 0.25rem;
+
+          .error-text {
+            font-size: 0.75rem;
+            color: #e74c3c;
+            margin: 0;
+          }
+        }
+      }
+
+      .actions-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1.5rem;
+
+        .action-button {
+          padding: 0.5rem 1.25rem;
+          font-size: 1rem;
+          font-weight: 500;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: background-color 0.2s;
+
+          &.primary {
+            background-color: #28a745;
+            color: #fff;
+
+            &:hover:not(:disabled) {
+              background-color: #218838;
+            }
+
+            &:disabled {
+              background-color: #a5d6a7;
+              cursor: not-allowed;
+            }
+          }
+
+          &:not(.primary) {
+            background: none;
+            color: #007bff;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
       }
     }
   }
-}
 
-.error-text-container {
-  padding-top: 0.25rem; // Space between input and error
-  padding-left: 0.1rem; // Slight indent if needed
-
-  .error-text {
-    color: $error-color;
-    font-size: 0.875rem; // text-sm
-    font-weight: 400;
-    line-height: 1.4;
-    margin: 0 0 0.1rem 0; // Small margin between multiple error lines
-  }
-}
-
-.content-bottom {
-  width: 100%;
-}
-
-.actions-container {
-  display: flex;
-  flex-direction: column; // Stack buttons
-  gap: 0.75rem; // Space between stacked buttons
-  padding: 0.75rem 1rem;
-  max-width: 480px;
-  margin: 0 auto; // Center the container
-
-  .action-button {
-    display: flex;
-    width: 100%;
-    min-width: 84px;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border-radius: 0.5rem; // rounded-lg
-    height: 2.75rem; // Slightly taller for better tap target h-11 approx
-    padding: 0 1rem; // px-4
-    font-size: 0.875rem; // text-sm
-    font-weight: 700; // font-bold
-    line-height: 1.5;
-    letter-spacing: 0.015em;
-    border: none;
-    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out;
-
-    .button-text {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    &.primary {
-      background-color: $primary-button-bg;
-      color: $primary-button-text;
-
-      &:hover:not(:disabled) {
-        background-color: darken($primary-button-bg, 10%);
-      }
-
-      &:disabled {
-        background-color: lighten($primary-button-bg, 25%);
-        color: lighten($primary-button-text, 10%);
-        cursor: not-allowed;
-        opacity: 0.7;
-      }
-    }
-
-    &.secondary {
-      background-color: $bg-color; // Match page background or a light gray
-      color: $primary-button-bg;   // Use primary color for text
-      border: 1px solid $primary-button-bg; // Border with primary color
-
-      &:hover:not(:disabled) {
-        background-color: lighten($primary-button-bg, 45%); // Very light tint of primary on hover
-        // color: darken($primary-button-bg, 5%);
-      }
-
-      // No specific disabled style for secondary, inherits general opacity if needed
-      // or define one:
-      // &:disabled {
-      //   color: lighten($primary-button-bg, 20%);
-      //   border-color: lighten($primary-button-bg, 20%);
-      //   cursor: not-allowed;
-      //   opacity: 0.7;
-      // }
+  .content-bottom {
+    .bottom-spacer {
+      flex: 1;
     }
   }
-}
-
-.bottom-spacer {
-  height: 1.25rem; // h-5
-  background-color: $bg-color;
 }

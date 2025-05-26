@@ -11,7 +11,22 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  login(user: UtenteLogin): Observable<Utente> {
-    return this.http.post<Utente>(`${this.apiUrl}`, user);
+  login(user: UtenteLogin): Observable<string> {
+    return this.http.post<string>(`${this.apiUrl}`, user);
+  }
+
+  isTokenValid(): boolean {
+    const token = localStorage.getItem('token');
+    if (!token) return false;
+
+    try {
+      const jwtToken = JSON.parse(token)['jwt-token'];
+      const payload = JSON.parse(atob(jwtToken.split('.')[1]));
+      const expirationDate = new Date(payload.exp * 1000);
+      return expirationDate > new Date();
+    } catch (error) {
+      console.error('Error validating token:', error);
+      return false;
+    }
   }
 }

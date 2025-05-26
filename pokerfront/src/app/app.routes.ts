@@ -7,17 +7,18 @@ import { UtenteDettaglioComponent } from './components/utente/utente-dettaglio/u
 import { LoginComponent } from './components/login/login.component';
 import { TavoloDettaglioComponent } from './components/tavolo/tavolo-dettaglio/tavolo-dettaglio.component';
 import { RegistrationComponent } from './components/registration/registration.component';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' }, // Meglio metterlo all'in
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'utenti', component: UtenteListaComponent },
-  { path: 'utenti/nuovo', component: UtenteAggiungiComponent },
-  { path: 'utenti/modifica/:id', component: UtenteAggiungiComponent },
-  { path: 'utenti/dettaglio/:id', component: UtenteDettaglioComponent },
-  { path: 'tavoli', component: TavoloListaComponent },
-  { path: 'tavoli/nuovo', component: TavoloAggiungiComponent },
-  { path: 'tavoli/modifica/:id', component: TavoloAggiungiComponent },
-  {path: 'tavoli/dettaglio/:id', component: TavoloDettaglioComponent}
+  { path: 'utenti', component: UtenteListaComponent, canActivate: [authGuard] },
+  { path: 'utenti/nuovo', component: UtenteAggiungiComponent, canActivate: [authGuard] },
+  { path: 'utenti/modifica/:id', component: UtenteAggiungiComponent, canActivate: [authGuard] },
+  { path: 'utenti/dettaglio/:id', component: UtenteDettaglioComponent, canActivate: [authGuard] },
+  { path: 'tavoli', component: TavoloListaComponent, canActivate: [authGuard] },
+  { path: 'tavoli/nuovo', component: TavoloAggiungiComponent, canActivate: [authGuard] },
+  { path: 'tavoli/modifica/:id', component: TavoloAggiungiComponent, canActivate: [authGuard] },
+  { path: 'tavoli/dettaglio/:id', component: TavoloDettaglioComponent, canActivate: [authGuard] }
 ];

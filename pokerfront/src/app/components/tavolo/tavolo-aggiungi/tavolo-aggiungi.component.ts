@@ -27,16 +27,18 @@ export class TavoloAggiungiComponent {
   constructor(private tavoloService: TavoloService) {}
 
   onSubmit() {
-    const newId = Math.max(...this.tavoloService.getAllTavoli().map(t => t.id)) + 1;
-    
-    const tavoloCompleto = {
-      ...this.nuovoTavolo,
-      id: newId
-    } as Tavolo;
+    this.tavoloService.getAllTavoli().subscribe(tavoli => {
+      const newId = tavoli.length > 0 ? Math.max(...tavoli.map(t => t.id)) + 1 : 1;
+      const tavoloCompleto = {
+        ...this.nuovoTavolo,
+        id: newId
+      } as Tavolo;
 
-    this.tavoloService.addTavolo(tavoloCompleto);
-    this.notify.emit(tavoloCompleto);
-    this.close.emit();
+      this.tavoloService.addTavolo(tavoloCompleto).subscribe(tavoloSalvato => {
+        this.notify.emit(tavoloSalvato);
+        this.close.emit();
+      });
+    });
   }
 
   onCancel() {

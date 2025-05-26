@@ -30,8 +30,10 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       this.loginService.login(this.loginForm.value).subscribe({
-        next: (response: Utente) => {
+        next: (response: any) => { // Attenzione viene restituito in JWT TOKEN
           console.log('Login successful', response);
+          localStorage.setItem('token', response);
+          localStorage.setItem('role', JSON.parse(atob(response["jwt-token"].split(".")[1])).ruolo)
           this.router.navigate(['/utenti']);
         },
         error: (error) => {
