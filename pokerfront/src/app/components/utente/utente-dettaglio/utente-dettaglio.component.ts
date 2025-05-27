@@ -22,11 +22,15 @@ export class UtenteDettaglioComponent implements OnInit {
   ngOnInit() {
     // Get the ID from the current URL
     const id = Number(this.router.url.split('/').pop());
-    this.utente = this.utenteService.getUtenteById(id) || null;
-    
-    if (!this.utente) {
-      this.router.navigate(['/utenti']);
-    }
+    this.utenteService.getUtenteById(id).subscribe({
+      next: (utente) => {
+        this.utente = utente;
+      },
+      error: (error) => {
+        console.error('Error fetching user:', error);
+        this.router.navigate(['/utenti']);
+      }
+    });
   }
 
   onClose() {
@@ -35,8 +39,14 @@ export class UtenteDettaglioComponent implements OnInit {
 
   onDelete() {
     if (this.utente && confirm('Sei sicuro di voler eliminare questo utente?')) {
-      this.utenteService.removeUtente(this.utente.id!);
-      this.router.navigate(['/utenti']);
+      this.utenteService.removeUtente(this.utente.id).subscribe({
+        next: () => {
+          this.router.navigate(['/utenti']);
+        },
+        error: (error) => {
+          console.error('Error deleting user:', error);
+        }
+      });
     }
   }
 }

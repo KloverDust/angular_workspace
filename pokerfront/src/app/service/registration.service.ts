@@ -7,11 +7,20 @@ import Utente, { UtenteRegistrazione } from '../model/utente';
   providedIn: 'root'
 })
 export class RegistrationService {
-  private apiUrl = 'http://localhost:8080/api/player'; // adjust this to match your backend URL 
+  private apiUrl = 'http://localhost:8080/api/auth/register'; 
+
 
   constructor(private http: HttpClient) { }
 
-  register(user: UtenteRegistrazione): Observable<Utente> {
+  registerPlayer(user: UtenteRegistrazione): Observable<Utente> {
+    return this.http.post<Utente>(`${this.apiUrl}`, user);
+  }
+
+  registerAdmin(user: UtenteRegistrazione): Observable<Utente> {
+    return this.http.post<Utente>(`${this.apiUrl}`, user);
+  }
+
+  registerCroupier(user: UtenteRegistrazione): Observable<Utente> {
     return this.http.post<Utente>(`${this.apiUrl}`, user);
   }
 }   

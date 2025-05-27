@@ -98,6 +98,23 @@
         </div>
       </div>
 
+      <div class="form-field-group">
+        <p class="label-text">Ruolo</p>
+        <div class="role-options">
+          <label class="role-option" *ngFor="let role of roles">
+            <input
+              type="radio"
+              formControlName="ruolo"
+              [value]="role"
+            />
+            <span>{{role.descrizione}}</span>
+          </label>
+        </div>
+        <div *ngIf="registrationForm.get('ruolo')?.invalid && (registrationForm.get('ruolo')?.dirty || registrationForm.get('ruolo')?.touched)" class="error-text-container">
+          <p *ngIf="registrationForm.get('ruolo')?.errors?.['required']" class="error-text">La selezione del ruolo è obbligatoria.</p>
+        </div>
+      </div>
+
       <div class="actions-container">
         <button
           type="submit"
@@ -119,3 +136,22 @@
     <div class="bottom-spacer"></div>
   </div>
 </div>
+
+<style>
+.role-options {
+  display: flex;
+  gap: 20px;
+  margin-top: 8px;
+}
+
+.role-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.role-option input[type="radio"] {
+  cursor: pointer;
+}
+</style>

@@ -1,54 +1,47 @@
 import { Injectable } from '@angular/core';
 import Utente from '../model/utente';
-import { UTENTI } from '../mock/mock';
-import { Stato } from '../model/utente';
-import Ruolo  from '../model/ruolo';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class UtenteService {
-  private utenti: Utente[] = UTENTI;
+  private apiUrl = 'http://localhost:8080/api';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getAllUtenti(): Utente[] {
-    return this.utenti;
+  getAllUtenti(): Observable<Utente[]> {
+    return this.http.get<Utente[]>(`${this.apiUrl}/admin/giocatori`);
   }
 
-  getUtenteById(id: number): Utente | undefined {
-    return this.utenti.find(utente => utente.id === id);
+  getUtenteById(id: number): Observable<Utente> {
+    return this.http.get<Utente>(`${this.apiUrl}/admin/${id}`);
   }
 
-  filterUtentiByNome(nome: string): Utente[] {
-    return this.utenti.filter(utente => utente.nome.toLowerCase().includes(nome.toLowerCase()));
+  filterUtentiByNome(nome: string): Observable<Utente[]> {
+    return this.http.get<Utente[]>(`${this.apiUrl}/search?nome=${nome}`);
   }
 
-  filterUtentiByUsername(username: string): Utente[] {
-    return this.utenti.filter(utente => utente.username.toLowerCase().includes(username.toLowerCase()));
+  filterUtentiByUsername(username: string): Observable<Utente[]> {
+    return this.http.get<Utente[]>(`${this.apiUrl}/search?username=${username}`);
   }
 
-  addUtente(utente: Utente): void {
-    this.utenti.push(utente);
+  addUtente(utente: Utente): Observable<Utente> {
+    return this.http.post<Utente>(this.apiUrl, utente);
   }
 
-  removeUtente(id: number): void {
-    this.utenti = this.utenti.filter(utente => utente.id !== id);
+  removeUtente(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  filterUtenti(filtro: { 
-    nome?: string; 
-    cognome?: string;
-    stato?: Stato;
-    ruolo?: Ruolo;
-  }): Utente[] {
-    return this.utenti.filter(utente => {
-      const matchNome = !filtro.nome || utente.nome.toLowerCase().includes(filtro.nome.toLowerCase());
-      const matchCognome = !filtro.cognome || utente.cognome.toLowerCase().includes(filtro.cognome.toLowerCase());
-      const matchStato = !filtro.stato || utente.stato === filtro.stato;
-      const matchRuolo = !filtro.ruolo || utente.ruolo.id === filtro.ruolo.id;
-      
-      return matchNome && matchCognome && matchStato && matchRuolo;
-    });
+  updateUtente(utente: Utente): Observable<Utente> {
+    return this.http.put<Utente>(`${this.apiUrl}/${utente.id}`, utente);
+  }
+
+  getUtenteByUsername(username: string): Observable<Utente> {
+    return this.http.get<Utente>(`${this.apiUrl}/search?username=${username}`);
   }
 
 }

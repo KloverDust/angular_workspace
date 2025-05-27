@@ -7,7 +7,7 @@ import Utente, { UtenteLogin } from '../model/utente';
   providedIn: 'root'
 })
 export class LoginService {
-  private apiUrl = 'http://localhost:8080/api/auth/login'; // adjust this to match your backend URL
+  private apiUrl = 'http://localhost:8080/api/auth/login'; 
 
   constructor(private http: HttpClient) { }
 
@@ -16,17 +16,37 @@ export class LoginService {
   }
 
   isTokenValid(): boolean {
-    const token = localStorage.getItem('token');
+    const token: string | null = localStorage.getItem('token');
     if (!token) return false;
 
     try {
-      const jwtToken = JSON.parse(token)['jwt-token'];
-      const payload = JSON.parse(atob(jwtToken.split('.')[1]));
+      const parts = token.split('.');
+      if (parts.length !== 3) {
+        console.error('Invalid JWT token format');
+        return false;
+      }
+      const payload = JSON.parse(atob(parts[1]));
       const expirationDate = new Date(payload.exp * 1000);
       return expirationDate > new Date();
     } catch (error) {
       console.error('Error validating token:', error);
+      console.log('Token value:', token); 
       return false;
+    }
+  }
+
+  getUserRole(): string | null {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+
+    try {
+      const parts = token.split('.');
+      if (parts.length !== 3) return null;
+      const payload = JSON.parse(atob(parts[1]));
+      return payload.ruolo;
+    } catch (error) {
+      console.error('Error parsing token:', error);
+      return null;
     }
   }
 }

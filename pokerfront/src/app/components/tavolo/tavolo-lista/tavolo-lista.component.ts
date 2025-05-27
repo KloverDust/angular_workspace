@@ -19,8 +19,10 @@ export class TavoloListaComponent implements OnInit {
   constructor(private tavoloService: TavoloService) {}
 
   ngOnInit() {
-    this.tavoloService.getAllTavoli().subscribe(tavoli => this.tavoli = tavoli);
-    this.tavoliFiltrati = [...this.tavoli];
+    this.tavoloService.getAllTavoli().subscribe(tavoli => {
+        this.tavoli = tavoli;
+        this.applyFiltro();  // Apply the filter after data arrives
+    });
   }
 
   ngOnChanges(): void {

@@ -23,8 +23,10 @@ export class UtenteListaComponent implements OnInit {
   private router: Router = inject(Router);
 
   ngOnInit() {
-    this.utenti = this.utenteService.getAllUtenti();
-    this.utentiFiltrati = [...this.utenti];
+    this.utenteService.getAllUtenti().subscribe(utenti => {
+      this.utenti = utenti;
+      this.utentiFiltrati = [...this.utenti];
+    });
   }
 
   ngOnChanges(): void {

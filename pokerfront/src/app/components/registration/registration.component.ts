@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { RegistrationService } from '../../service/registration.service';
 import Utente from '../../model/utente';
+import { RUOLI } from '../../mock/mock';
+import Ruolo from '../../model/ruolo';
 
 @Component({
   selector: 'app-registration',
@@ -14,6 +16,7 @@ import Utente from '../../model/utente';
 })
 export class RegistrationComponent {
   registrationForm: FormGroup;
+  roles: Ruolo[] = RUOLI;
 
   constructor(
     private fb: FormBuilder,
@@ -25,7 +28,8 @@ export class RegistrationComponent {
       cognome: ['', Validators.required],
       username: ['', [Validators.required, Validators.minLength(4)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      credito: ['', [Validators.required, Validators.min(0)]]
+      credito: ['', [Validators.required, Validators.min(0)]],
+      ruolo: [RUOLI[1], Validators.required] // Default to Player role
     });
   }
 
@@ -35,7 +39,22 @@ export class RegistrationComponent {
 
   onSubmit() {
     if (this.registrationForm.valid) {
-      this.registrationService.register(this.registrationForm.value).subscribe({
+      const ruolo = this.registrationForm.get('ruolo')?.value as Ruolo;
+      let registration;
+      
+      switch (ruolo.id) {
+        case 2:
+          registration = this.registrationService.registerPlayer(this.registrationForm.value);
+          break;
+        case 1:
+          registration = this.registrationService.registerAdmin(this.registrationForm.value);
+          break;
+        case 3:
+          registration = this.registrationService.registerCroupier(this.registrationForm.value);
+          break;
+      }
+
+      registration!.subscribe({
         next: response => {
           console.log('Registration successful:', response);
           this.router.navigate(['/login']);
