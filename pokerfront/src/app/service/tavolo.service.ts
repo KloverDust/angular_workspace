@@ -24,7 +24,7 @@ export class TavoloService {
   }
 
   addTavolo(tavolo: Tavolo): Observable<Tavolo> {
-    return this.http.post<Tavolo>(this.apiUrl, tavolo);
+    return this.http.post<Tavolo>(`${this.apiUrl}/crea`, tavolo);
   }
 
   deleteTavolo(id: number): Observable<void> {
