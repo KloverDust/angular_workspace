@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TavoloService } from '../../../service/tavolo.service';
 import Tavolo from '../../../model/tavolo';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tavolo-aggiungi',
@@ -23,13 +24,19 @@ export class TavoloAggiungiComponent {
     utenteCreazione: undefined // Default al primo utente disponibile
   };
 
-  constructor(private tavoloService: TavoloService) {}
+  constructor(
+    private tavoloService: TavoloService,
+    private router: Router
+  ) {}
 
   onSubmit() {
     this.tavoloService.addTavolo(this.nuovoTavolo as Tavolo).subscribe(tavoloSalvato => {
       this.notify.emit(tavoloSalvato);
       this.close.emit();
+      this.router.navigate(['/tavoli']);
     });
+
+
   }
 
   onCancel() {

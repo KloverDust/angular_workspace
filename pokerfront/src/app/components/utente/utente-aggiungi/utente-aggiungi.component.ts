@@ -31,18 +31,9 @@ export class UtenteAggiungiComponent {
   constructor(private utenteService: UtenteService) {}
 
   onSubmit() {
-    this.utenteService.getAllUtenti().subscribe(utenti => {
-      const newId = Math.max(...utenti.map(u => u.id)) + 1;
-    
-    const utenteCompleto = {
-      ...this.nuovoUtente,
-      id: newId
-    } as Utente;
-
-      this.utenteService.addUtente(utenteCompleto).subscribe(() => {
-        this.notify.emit(utenteCompleto);
-        this.close.emit();
-      });
+    this.utenteService.addUtente(this.nuovoUtente as Utente).subscribe(utenteSalvato => {
+      this.notify.emit(utenteSalvato);
+      this.close.emit();
     });
   }
 
