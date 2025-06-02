@@ -64,4 +64,15 @@
       border-color: #0056b3;
     }
   }
+
+  .logout-btn {
+    background-color: #dc3545;
+    border: 1px solid #dc3545;
+    color: white;
+
+    &:hover {
+      background-color: #c82333;
+      border-color: #bd2130;
+    }
+  }
 }

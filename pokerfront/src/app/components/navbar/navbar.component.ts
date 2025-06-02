@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { HostListener } from '@angular/core';
 import { MaterialModule } from '../../material.module';
+import { LoginService } from '../../service/login.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +16,10 @@ import { MaterialModule } from '../../material.module';
 export class NavbarComponent {
   activeDropdown: string | null = null;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private loginService: LoginService
+  ) {}
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
@@ -23,6 +27,14 @@ export class NavbarComponent {
     if (!navbar) {
       this.closeDropdown();
     }
+  }
+
+  isLoggedIn(): boolean {
+    return this.loginService.isTokenValid();
+  }
+
+  getUserRole(): string | null {
+    return this.loginService.getUserRole();
   }
 
   toggleDropdown(menu: string): void {
@@ -45,5 +57,10 @@ export class NavbarComponent {
 
   register(): void {
     this.router.navigate(['/register']);
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 } 

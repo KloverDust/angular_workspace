@@ -2,7 +2,7 @@
   <span class="brand">Poker App</span>
   
   <div class="nav-items">
-    <div class="nav-item">
+    <div class="nav-item" *ngIf="isLoggedIn()">
       <button (click)="toggleDropdown('utenti')">Utenti</button>
       <div class="dropdown" *ngIf="activeDropdown === 'utenti'">
         <a [routerLink]="['/utenti']" (click)="closeDropdown()">Lista Utenti</a>
@@ -10,7 +10,7 @@
       </div>
     </div>
 
-    <div class="nav-item">
+    <div class="nav-item" *ngIf="isLoggedIn()">
       <button (click)="toggleDropdown('tavoli')">Tavoli</button>
       <div class="dropdown" *ngIf="activeDropdown === 'tavoli'">
         <a [routerLink]="['/tavoli']" (click)="closeDropdown()">Lista Tavoli</a>
@@ -19,8 +19,13 @@
     </div>
 
     <div class="auth-buttons">
-      <button class="login-btn" (click)="login()">Accedi</button>
-      <button class="register-btn" (click)="register()">Registrati</button>
+      <ng-container *ngIf="!isLoggedIn(); else loggedInButtons">
+        <button class="login-btn" (click)="login()">Accedi</button>
+        <button class="register-btn" (click)="register()">Registrati</button>
+      </ng-container>
+      <ng-template #loggedInButtons>
+        <button class="logout-btn" (click)="logout()">Logout</button>
+      </ng-template>
     </div>
   </div>
 </nav>
