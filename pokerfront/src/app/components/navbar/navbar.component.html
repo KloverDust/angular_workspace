@@ -1,31 +1,56 @@
-<nav class="navbar">
-  <span class="brand">Poker App</span>
+<mat-toolbar color="primary">
+  <span>Poker App</span>
+  <span class="toolbar-spacer"></span>
   
-  <div class="nav-items">
-    <div class="nav-item" *ngIf="isLoggedIn()">
-      <button (click)="toggleDropdown('utenti')">Utenti</button>
-      <div class="dropdown" *ngIf="activeDropdown === 'utenti'">
-        <a [routerLink]="['/utenti']" (click)="closeDropdown()">Lista Utenti</a>
-        <a [routerLink]="['/utenti/nuovo']" (click)="closeDropdown()">Nuovo Utente</a>
-      </div>
-    </div>
+  <ng-container *ngIf="isLoggedIn()">
+    <!-- Users Menu -->
+    <button mat-button [matMenuTriggerFor]="utentiMenu">
+      Utenti
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #utentiMenu="matMenu">
+      <button mat-menu-item [routerLink]="['/utenti']">
+        <mat-icon>people</mat-icon>
+        <span>Lista Utenti</span>
+      </button>
+      <button mat-menu-item [routerLink]="['/utenti/nuovo']">
+        <mat-icon>person_add</mat-icon>
+        <span>Nuovo Utente</span>
+      </button>
+    </mat-menu>
 
-    <div class="nav-item" *ngIf="isLoggedIn()">
-      <button (click)="toggleDropdown('tavoli')">Tavoli</button>
-      <div class="dropdown" *ngIf="activeDropdown === 'tavoli'">
-        <a [routerLink]="['/tavoli']" (click)="closeDropdown()">Lista Tavoli</a>
-        <a [routerLink]="['/tavoli/nuovo']" (click)="closeDropdown()">Nuovo Tavolo</a>
-      </div>
-    </div>
+    <!-- Tables Menu -->
+    <button mat-button [matMenuTriggerFor]="tavoliMenu">
+      Tavoli
+      <mat-icon>arrow_drop_down</mat-icon>
+    </button>
+    <mat-menu #tavoliMenu="matMenu">
+      <button mat-menu-item [routerLink]="['/tavoli']">
+        <mat-icon>table_chart</mat-icon>
+        <span>Lista Tavoli</span>
+      </button>
+      <button mat-menu-item [routerLink]="['/tavoli/nuovo']">
+        <mat-icon>add_box</mat-icon>
+        <span>Nuovo Tavolo</span>
+      </button>
+    </mat-menu>
+  </ng-container>
 
-    <div class="auth-buttons">
-      <ng-container *ngIf="!isLoggedIn(); else loggedInButtons">
-        <button class="login-btn" (click)="login()">Accedi</button>
-        <button class="register-btn" (click)="register()">Registrati</button>
-      </ng-container>
-      <ng-template #loggedInButtons>
-        <button class="logout-btn" (click)="logout()">Logout</button>
-      </ng-template>
-    </div>
-  </div>
-</nav>
+  <!-- Auth Buttons -->
+  <ng-container *ngIf="!isLoggedIn(); else loggedInButtons">
+    <button mat-raised-button color="accent" (click)="login()" class="auth-button">
+      <mat-icon>login</mat-icon>
+      Accedi
+    </button>
+    <button mat-raised-button color="accent" (click)="register()" class="auth-button">
+      <mat-icon>person_add</mat-icon>
+      Registrati
+    </button>
+  </ng-container>
+  <ng-template #loggedInButtons>
+    <button mat-raised-button color="warn" (click)="logout()" class="auth-button">
+      <mat-icon>logout</mat-icon>
+      Logout
+    </button>
+  </ng-template>
+</mat-toolbar>
