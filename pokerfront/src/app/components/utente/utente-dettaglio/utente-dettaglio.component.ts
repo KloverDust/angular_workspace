@@ -3,16 +3,19 @@ import Utente from '../../../model/utente';
 import { CommonModule } from '@angular/common';
 import { UtenteService } from '../../../service/utente.service';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-utente-dettaglio',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './utente-dettaglio.component.html',
   styleUrl: './utente-dettaglio.component.scss'
 })
 export class UtenteDettaglioComponent implements OnInit {
   utente: Utente | null = null;
+  editMode = false;
+  editedUtente: Utente | null = null;
 
   constructor(
     private utenteService: UtenteService,
@@ -48,6 +51,33 @@ export class UtenteDettaglioComponent implements OnInit {
         }
       });
     }
+  }
+
+  onEdit() {
+    if (this.utente) {
+      this.editedUtente = { ...this.utente };
+      this.editMode = true;
+    }
+  }
+
+  onSave() {
+    if (this.editedUtente) {
+      this.utenteService.updateUtente(this.editedUtente).subscribe({
+        next: (updatedUtente) => {
+          this.utente = updatedUtente;
+          this.editMode = false;
+          this.editedUtente = null;
+        },
+        error: (error) => {
+          console.error('Error updating user:', error);
+        }
+      });
+    }
+  }
+
+  onCancel() {
+    this.editMode = false;
+    this.editedUtente = null;
   }
 }
 

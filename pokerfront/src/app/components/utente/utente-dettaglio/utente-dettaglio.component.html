@@ -1,17 +1,52 @@
+<div *ngIf="!editMode && utente">
+  <h2>Dettagli di {{ utente.nome }} {{ utente.cognome }}</h2>
+  <p><strong>ID:</strong> {{ utente.id }}</p>
+  <p><strong>Username:</strong> {{ utente.username }}</p>
+  <p><strong>Nome:</strong> {{ utente.nome }}</p>
+  <p><strong>Cognome:</strong> {{ utente.cognome }}</p>
+  <p><strong>Stato:</strong> {{ utente.stato }}</p>
+  <p><strong>Esperienza:</strong> {{ utente.esperienzaAccumulata }}</p>
+  <p><strong>Credito:</strong> {{ utente.creditoAccumulato }}</p>
+</div>
 
-    <div *ngIf="utente">
-      <h2>Dettagli di {{ utente.nome }} {{ utente.cognome }}</h2>
-      <p><strong>ID:</strong> {{ utente.id }}</p>
-      <p><strong>Username:</strong> {{ utente.username }}</p>
-      <p><strong>Nome:</strong> {{ utente.nome }}</p>
-      <p><strong>Cognome:</strong> {{ utente.cognome }}</p>
-      <p><strong>Stato:</strong> {{ utente.stato }}</p>
-      <p><strong>Esperienza:</strong> {{ utente.esperienzaAccumulata }}</p>
-      <p><strong>Credito:</strong> {{ utente.creditoAccumulato }}</p>
-    </div>
-    <div class="actions">
-      <button class="btn-secondary" (click)="onClose()">Chiudi</button>
-      <button class="btn-danger" (click)="onDelete()">Elimina Utente</button>
-    </div>
+<div *ngIf="editMode && editedUtente">
+  <h2>Modifica Utente</h2>
+  <div class="form-group">
+    <label><strong>Username:</strong></label>
+    <input type="text" [(ngModel)]="editedUtente.username" class="form-control">
+  </div>
+  <div class="form-group">
+    <label><strong>Nome:</strong></label>
+    <input type="text" [(ngModel)]="editedUtente.nome" class="form-control">
+  </div>
+  <div class="form-group">
+    <label><strong>Cognome:</strong></label>
+    <input type="text" [(ngModel)]="editedUtente.cognome" class="form-control">
+  </div>
+  <div class="form-group">
+    <label><strong>Stato:</strong></label>
+    <input type="text" [(ngModel)]="editedUtente.stato" class="form-control">
+  </div>
+  <div class="form-group">
+    <label><strong>Esperienza:</strong></label>
+    <input type="number" [(ngModel)]="editedUtente.esperienzaAccumulata" class="form-control">
+  </div>
+  <div class="form-group">
+    <label><strong>Credito:</strong></label>
+    <input type="number" [(ngModel)]="editedUtente.creditoAccumulato" class="form-control">
+  </div>
+</div>
+
+<div class="actions">
+  <button class="btn-secondary" (click)="onClose()">Chiudi</button>
+  <ng-container *ngIf="!editMode">
+    <button class="btn-primary" (click)="onEdit()">Modifica</button>
+    <button class="btn-danger" (click)="onDelete()">Elimina Utente</button>
+  </ng-container>
+  <ng-container *ngIf="editMode">
+    <button class="btn-primary" (click)="onSave()">Salva</button>
+    <button class="btn-secondary" (click)="onCancel()">Annulla</button>
+  </ng-container>
+</div>
   
   
