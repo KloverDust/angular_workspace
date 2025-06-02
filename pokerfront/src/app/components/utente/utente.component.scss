@@ -4,3 +4,72 @@
   gap: 1rem;                /* spazio orizzontale fisso tra un button e l'altro */
   margin: 1.5rem 0;         /* spazio sopra e sotto il nav */
 }
+
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #fff8e1;
+}
+
+mat-card {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  background-color: white;
+  border: 2px solid #ffd740;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+  &:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.3s ease;
+  }
+}
+
+.login-form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 0;
+}
+
+.form-field-group {
+  width: 100%;
+}
+
+.actions-container {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+
+  button {
+    min-width: 120px;
+    font-weight: 500;
+    background-color: #ffd740 !important; // Yellow button
+  }
+}
+
+.register-link-container {
+  margin-top: 16px;
+  text-align: center;
+  
+  p {
+    margin: 0;
+    a {
+      color: #ff9100 !important; // Orange for links
+    }
+  }
+}
+
+mat-card-header {
+  justify-content: center;
+  margin-bottom: 16px;
+
+  mat-card-title {
+    font-size: 24px;
+    font-weight: 500;
+    color: #f57c00; // Orange color for the title
+  }
+}
