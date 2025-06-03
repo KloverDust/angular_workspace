@@ -6,22 +6,41 @@ import { RegistrationService } from '../../service/registration.service';
 import Utente from '../../model/utente';
 import { RUOLI } from '../../mock/mock';
 import Ruolo from '../../model/ruolo';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-registration',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule, 
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatRadioModule,
+    MatSnackBarModule,
+    MatToolbarModule
+  ],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss'
 })
 export class RegistrationComponent {
   registrationForm: FormGroup;
   roles: Ruolo[] = RUOLI;
+  hidePassword = true;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private registrationService: RegistrationService
+    private registrationService: RegistrationService,
+    private snackBar: MatSnackBar
   ) {
     this.registrationForm = this.fb.group({
       nome: ['', Validators.required],
@@ -57,14 +76,19 @@ export class RegistrationComponent {
       registration!.subscribe({
         next: response => {
           console.log('Registration successful:', response);
+          this.snackBar.open('Registrazione completata con successo!', 'Chiudi', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top'
+          });
           this.router.navigate(['/login']);
         },
         error: (error) => {
           console.error('Registration failed:', error);
-          console.error('Error details:', {
-            status: error.status,
-            message: error.message,
-            error: error.error
+          this.snackBar.open('Errore durante la registrazione. Riprova.', 'Chiudi', {
+            duration: 5000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top'
           });
         }
       });
